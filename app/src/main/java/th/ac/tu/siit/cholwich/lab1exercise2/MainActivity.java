@@ -2,11 +2,79 @@ package th.ac.tu.siit.cholwich.lab1exercise2;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
+
+    public void ConvertClick (View v) {
+
+        EditText et;
+        et = (EditText) findViewById(R.id.etInput);
+        String s = et.getText().toString();
+        Double input = Double.parseDouble(s);
+
+        RadioGroup rgFrom = (RadioGroup) findViewById(R.id.rgFrom);
+        int from = rgFrom.getCheckedRadioButtonId();
+
+        if (from == R.id.rbFrmC) { //The user wants to convert from Celsius.
+            RadioGroup rgTo = (RadioGroup) findViewById(R.id.rgTo);
+            int Tocel = rgTo.getCheckedRadioButtonId();
+            if (Tocel == R.id.rbToC) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToF) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = input * 9 / 5 + 32;
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToK) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = input + 273.15;
+                etOutput.setText(Double.toString(input));
+            }
+        }
+
+        if (from == R.id.rbFrmF) {
+            RadioGroup rgTo = (RadioGroup) findViewById(R.id.rgTo);
+            int Tocel = rgTo.getCheckedRadioButtonId();
+            if (Tocel == R.id.rbToC) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = (input - 32) * 5 / 9;
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToF) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                //input = input+273.15;
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToK) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = (input + 459.67) * 5 / 9;
+                etOutput.setText(Double.toString(input));
+            }
+        }
+
+        if (from == R.id.rbFrmK) {
+            RadioGroup rgTo = (RadioGroup) findViewById(R.id.rgTo);
+            int Tocel = rgTo.getCheckedRadioButtonId();
+            if (Tocel == R.id.rbToC) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = input - 273.15;
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToF) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                input = input * 9 / 5 - 459.67;
+                etOutput.setText(Double.toString(input));
+            } else if (Tocel == R.id.rbToK) {
+                TextView etOutput = (TextView) findViewById(R.id.tvOutput);
+                etOutput.setText(Double.toString(input));
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
